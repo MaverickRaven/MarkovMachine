@@ -1,0 +1,11 @@
+{
+  "name": "markov_module",
+  "version": "0.1.0",
+  "description": "Provides a classes for processing text input and generating markov chains from that text which can then be used to procedurally generate new text.",
+  "main": "MarkovModule.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lyle Davis",
+  "license": "ISC"
+}
