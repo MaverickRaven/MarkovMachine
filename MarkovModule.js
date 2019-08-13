@@ -9,13 +9,11 @@ const WORD_END = '%', // '%' is the arbitrarily chosen end-of-word marker &
   * Rethink how chains are built, currently complexity is O(n^"to the power of how many chains we are generating")
   *   and there's probably a way to generate the chains as we iterate through the list once and only once, rather than
   *   looping through it several times
-  * Rethink the usefulness of isSpecialListObject and title properties. We just have simple checks for improper formatting
-  *   and if it somehow passes then that's not really our problem.
+  * validate the JSON data SCHEMA VALIDATION
   * Look over sorting algorithms and make sure data is being handled properly (sorting is actually happening)
   * Properly comment code, check over equivalent functions and make sure they work one to one
   * Find format for comments and documenting classes
   * Investigate tests and TDD
-  * Turn the MarkovModule into a standalone exportable module, perhaps using npm. Locally somehow regardless
   * Learn more git functionality, starting with branching and comments
   */
 
@@ -394,7 +392,7 @@ class RawObject extends MarkovObject {
   constructor( input ) {
     super();
     if ( typeof input === 'object' ) { // single-object input
-      if ( !input["isSpecialListObject"]) { // test the special flag placed in every .json file I format (is this just data bloat or a useful short circuit?)
+      if ( !input["list"]) { // eventually, this will get replaced with proper JSON format validation
         throw new Error("Improperly formatted .json file!"); // maybe say something about the specified schema instead?
       } else {
         this.tags = input.tags;
@@ -443,7 +441,7 @@ class JSONObject extends MarkovObject {
       let temp = JSON.parse( fs.readFileSync( input,'utf8', err => {
         if (err) throw err;
       }));
-      if ( !temp["isSpecialListObject"]) { // test the special flag placed in every .json file I format (is this just data bloat or a useful short circuit?)
+      if ( !temp["list"]) { // eventually, this will get replaced with proper JSON format validation
         throw new Error("Improperly formatted .json file!"); // maybe say something about the specified schema instead?
       } else {
         this.tags = temp.tags;
